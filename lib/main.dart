@@ -35,66 +35,83 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         elevation: 0.0,
       ),
-      body: Center(
-        child:
-        new Scaffold(
-          backgroundColor: Colors.white,
-          body: new Row(
-            children: <Widget>[
-              new Column(
-                children: <Widget>[
-                  new Align(
-                    heightFactor: 1.76,
-                    widthFactor: 1.76,
-                    child: Center(
-                      child: new Container(
-                        // child: new Image(image: AssetImage('/assets/images/images.png')),
-                        child: new GestureDetector(
-                            child: Icon(
-                              Icons.local_post_office,
-                              size: 110.0,
-                            ),
-                            onTap: () {
-                              //Do something
-                            }),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              new Column(
-                children: <Widget>[
-                  new Align(
-                    heightFactor: 1.76,
-                    widthFactor: 1.76,
-                    child: Center(
-                      child: new Container(
-                        // child: new Image(image: AssetImage('/assets/images/images.png')),
-                        child: new GestureDetector(
-                            child: Icon(
-                              Icons.local_post_office,
-                              size: 110.0,
-                            ),
-                            onTap: () {
-                              //Do something
-                            }),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+//      body: Center(
+//        child:
+//        new Scaffold(
+//          backgroundColor: Colors.white,
+//          body: new Row(
+//            children: <Widget>[
+//              new Column(
+//                children: <Widget>[
+//                  new Align(
+//                    heightFactor: 1.76,
+//                    widthFactor: 1.76,
+//                    child: Center(
+//                      child: new Container(
+//                        // child: new Image(image: AssetImage('/assets/images/images.png')),
+//                        child: new GestureDetector(
+//                            child: Icon(
+//                              Icons.local_post_office,
+//                              size: 110.0,
+//                            ),
+//                            onTap: () {
+//                              //Do something
+//                            }),
+//                      ),
+//                    ),
+//                  ),
+//                ],
+//              ),
+//              new Column(
+//                children: <Widget>[
+//                  new Align(
+//                    heightFactor: 1.76,
+//                    widthFactor: 1.76,
+//                    child: Center(
+//                      child: new Container(
+//                        // child: new Image(image: AssetImage('/assets/images/images.png')),
+//                        child: new GestureDetector(
+//                            child: Icon(
+//                              Icons.local_post_office,
+//                              size: 110.0,
+//                            ),
+//                            onTap: () {
+//                              //Do something
+//                            }),
+//                      ),
+//                    ),
+//                  ),
+//                ],
+//              ),
+//            ],
+//          ),
+//        ),
+//      ),
+    backgroundColor: Colors.white,
+    body: new GridView.extent(
+        maxCrossAxisExtent: 240.0,
+      children: _buildGridTiles(12),
+    ),
       drawer: new Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             new DrawerHeader(
-              child: Text('Name'),
+              child: Center(
+                child: new Text(
+                  'Elon Musk',
+                  style: new TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
+                image: new DecorationImage(image: AssetImage(
+                    'assets/images/musk.jpeg',
+                ),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             ListTile(
@@ -119,4 +136,36 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+List<Widget> _buildGridTiles(numberOfTiles) {
+  List<Container> containers = new List<Container>.generate(numberOfTiles,
+      (int index) {
+        //index = 0, 1, 2,...
+        return new Container(
+
+          child:
+          // new Image.asset('assets/images/musk.jpeg'),
+          new GestureDetector(
+            child: Column(
+              children: <Widget>[
+                new Icon(
+                  Icons.local_post_office,
+                  size: 150.0,
+                ),
+                new Text('Hello World',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                )
+              ],
+            ),
+            onTap: () {
+              print('Someone Tapped');
+            },
+          ),
+          
+        );
+      }
+  );
+  return containers;
 }
