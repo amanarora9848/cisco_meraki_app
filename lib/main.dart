@@ -140,9 +140,9 @@ class _MyHomePageState extends State<MyHomePage> {
 List<Widget> _buildGridTiles(numberOfTiles) {
   List<Container> containers = new List<Container>.generate(numberOfTiles,
       (int index) {
+      final iconName = index < 12 ? 'Tapping on image ${index+1} .' : 'N.A.';
         //index = 0, 1, 2,...
         return new Container(
-
           child:
           // new Image.asset('assets/images/musk.jpeg'),
           new GestureDetector(
@@ -160,7 +160,7 @@ List<Widget> _buildGridTiles(numberOfTiles) {
               ],
             ),
             onTap: () {
-              print('Someone Tapped');
+              print(iconName);
             },
           ),
           
