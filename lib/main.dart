@@ -8,8 +8,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.green.shade900,
-        primarySwatch: Colors.green,
+        primaryColor: Colors.white,
+//        primarySwatch: Colors.white,
       ),
       home: MyHomePage(title: 'Meraki'),
     );
@@ -25,39 +25,67 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        elevation: 0.0,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+        child:
+        new Scaffold(
+          backgroundColor: Colors.white,
+          body: new Row(
+            children: <Widget>[
+              new Column(
+                children: <Widget>[
+                  new Align(
+                    heightFactor: 1.76,
+                    widthFactor: 1.76,
+                    child: Center(
+                      child: new Container(
+                        // child: new Image(image: AssetImage('/assets/images/images.png')),
+                        child: new GestureDetector(
+                            child: Icon(
+                              Icons.local_post_office,
+                              size: 110.0,
+                            ),
+                            onTap: () {
+                              //Do something
+                            }),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              new Column(
+                children: <Widget>[
+                  new Align(
+                    heightFactor: 1.76,
+                    widthFactor: 1.76,
+                    child: Center(
+                      child: new Container(
+                        // child: new Image(image: AssetImage('/assets/images/images.png')),
+                        child: new GestureDetector(
+                            child: Icon(
+                              Icons.local_post_office,
+                              size: 110.0,
+                            ),
+                            onTap: () {
+                              //Do something
+                            }),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
       drawer: new Drawer(
         child: ListView(
@@ -66,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
             new DrawerHeader(
               child: Text('Name'),
               decoration: BoxDecoration(
-                color: Colors.grey[300],
+                color: Colors.white,
               ),
             ),
             ListTile(
@@ -88,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-      ),// This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
