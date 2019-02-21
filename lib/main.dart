@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-//import '';
+import 'eval.dart';
+//import 'package:d3/d3.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,6 +14,10 @@ class MyApp extends StatelessWidget {
 //        primarySwatch: Colors.white,
       ),
       home: MyHomePage(title: 'Meraki'),
+      routes: <String, WidgetBuilder> {
+        // "/": (BuildContext context) => new MyApp(),
+        "/EvalPage1": (BuildContext context) => new EvalPage(),
+      },
     );
   }
 }
@@ -91,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
     backgroundColor: Colors.white,
     body: new GridView.extent(
         maxCrossAxisExtent: 240.0,
-      children: _buildGridTiles(12),
+      children: _buildGridTiles(8, context),
     ),
       drawer: new Drawer(
         child: ListView(
@@ -119,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Login'),
               leading: Icon(Icons.exit_to_app),
               onTap: () {
+                //Navigator.of(context).pushNamed("/EvalPage");
                 //Opens up the login page.
 
                 //Navigator.pop(context);
@@ -138,10 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-List<Widget> _buildGridTiles(numberOfTiles) {
+List<Widget> _buildGridTiles(numberOfTiles, BuildContext context) {
   List<Container> containers = new List<Container>.generate(numberOfTiles,
       (int index) {
-      final iconName = index < 12 ? 'Tapping on image ${index+1} .' : 'N.A.';
+      final iconNo = index < 12 ? index : 0;
         //index = 0, 1, 2,...
         return new Container(
           child:
@@ -155,13 +161,14 @@ List<Widget> _buildGridTiles(numberOfTiles) {
                 ),
                 new Text('Hello World',
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 15.0,
                   ),
                 )
               ],
             ),
             onTap: () {
-              print(iconName);
+              //print(iconName);
+              Navigator.of(context).pushNamed("/EvalPage${iconNo+1}");
             },
           ),
           

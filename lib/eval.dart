@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class EvalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -8,7 +9,7 @@ class EvalPage extends StatelessWidget {
         primaryColor: Colors.white,
 //        primarySwatch: Colors.white,
       ),
-      home: MyEvalPage(title: 'Meraki'),
+      home: MyEvalPage(title: 'Queue Data Analytics'),
     );
   }
 }
