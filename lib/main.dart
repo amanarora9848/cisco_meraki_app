@@ -41,6 +41,107 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         elevation: 0.0,
       ),
+    backgroundColor: Colors.white,
+    body: new GridView.extent(
+        maxCrossAxisExtent: 240.0,
+      children: _buildGridTiles(8, context),
+    ),
+      drawer: new Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            new DrawerHeader(
+              child: Center(
+                child: new Text(
+                  'Elon Musk',
+                  style: new TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: new DecorationImage(image: AssetImage(
+                    'assets/images/musk.jpeg',
+                ),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Login'),
+              leading: Icon(Icons.exit_to_app),
+              onTap: () {
+                //Navigator.of(context).pushNamed("/EvalPage");
+                //Opens up the login page.
+
+                //Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Settings'),
+              leading: Icon(Icons.settings),
+              onTap: () {
+                //Opens up the accounts page.
+                // Navigator.pop(context);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+List<Widget> _buildGridTiles(numberOfTiles, BuildContext context) {
+  List<Container> containers = new List<Container>.generate(numberOfTiles,
+      (int index) {
+      final iconNo = index < 12 ? index : 0;
+        //index = 0, 1, 2,...
+        return new Container(
+          child:
+          // new Image.asset('assets/images/musk.jpeg'),
+          new GestureDetector(
+            child: Column(
+              children: <Widget>[
+                new Icon(
+                  Icons.local_post_office,
+                  size: 150.0,
+                ),
+                new Text('Hello World',
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
+                )
+              ],
+            ),
+            onTap: () {
+              //print(iconName);
+              Navigator.of(context).pushNamed("/EvalPage${iconNo+1}");
+            },
+          ),
+          
+        );
+      }
+  );
+  return containers;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// AppBar previous un-needed code
 //      body: Center(
 //        child:
 //        new Scaffold(
@@ -93,87 +194,3 @@ class _MyHomePageState extends State<MyHomePage> {
 //          ),
 //        ),
 //      ),
-    backgroundColor: Colors.white,
-    body: new GridView.extent(
-        maxCrossAxisExtent: 240.0,
-      children: _buildGridTiles(8, context),
-    ),
-      drawer: new Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            new DrawerHeader(
-              child: Center(
-                child: new Text(
-                  'Elon Musk',
-                  style: new TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                image: new DecorationImage(image: AssetImage(
-                    'assets/images/musk.jpeg',
-                ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Login'),
-              leading: Icon(Icons.exit_to_app),
-              onTap: () {
-                //Navigator.of(context).pushNamed("/EvalPage");
-                //Opens up the login page.
-
-                //Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Settings'),
-              leading: Icon(Icons.settings),
-              onTap: () {
-                //Opens up the accounts page.
-                // Navigator.pop(context);
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-List<Widget> _buildGridTiles(numberOfTiles, BuildContext context) {
-  List<Container> containers = new List<Container>.generate(numberOfTiles,
-      (int index) {
-      final iconNo = index < 12 ? index : 0;
-        //index = 0, 1, 2,...
-        return new Container(
-          child:
-          // new Image.asset('assets/images/musk.jpeg'),
-          new GestureDetector(
-            child: Column(
-              children: <Widget>[
-                new Icon(
-                  Icons.local_post_office,
-                  size: 150.0,
-                ),
-                new Text('Hello World',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
-                )
-              ],
-            ),
-            onTap: () {
-              //print(iconName);
-              Navigator.of(context).pushNamed("/EvalPage${iconNo+1}");
-            },
-          ),
-          
-        );
-      }
-  );
-  return containers;
-}

@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 class EvalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.white,
-//        primarySwatch: Colors.white,
+//    return MaterialApp(
+//      title: 'Flutter Demo',
+//      theme: ThemeData(
+//        primaryColor: Colors.white,
+////        primarySwatch: Colors.white,
+//      ),
+//      home: MyEvalPage(title: 'Queue Data Analytics'),
+//    );
+    return Scaffold(
+      body: MyEvalPage(
+        title: 'Queue Data Analytics',
       ),
-      home: MyEvalPage(title: 'Queue Data Analytics'),
     );
   }
 }
@@ -34,13 +39,6 @@ class _MyEvalPageState extends State<MyEvalPage> {
         elevation: 0.0,
       ),
       backgroundColor: Colors.white,
-      body: new Container(
-        child: new Center(
-          child: new Icon(
-            Icons.add_circle,
-          ),
-        ),
-      ),
     );
   }
 }
