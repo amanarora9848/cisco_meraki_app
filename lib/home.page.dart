@@ -48,6 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.black,
           ),
         ),
+        iconTheme: new IconThemeData(
+          color: Colors.black,
+        ),
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0.0,
@@ -58,51 +61,51 @@ class _MyHomePageState extends State<MyHomePage> {
         children: _buildGridTiles(8, context),
       ),
       drawer: new Drawer(
-        elevation: 10.0,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            new DrawerHeader(
-              child: Center(
-                child: new Text(
-                  'Elon Musk',
-                  style: new TextStyle(
+            elevation: 10.0,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                new DrawerHeader(
+                  child: Center(
+                    child: new Text(
+                      'Elon Musk',
+                      style: new TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
                     color: Colors.white,
+                    image: new DecorationImage(image: AssetImage(
+                      'assets/images/musk.jpeg',
+                    ),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                image: new DecorationImage(image: AssetImage(
-                  'assets/images/musk.jpeg',
+                ListTile(
+                  title: Text('Logout'),
+                  leading: Icon(Icons.exit_to_app),
+                  onTap: () {
+                    //Navigator.of(context).pushNamed("/EvalPage");
+                    //Opens up the login page.
+                    appAuth.logout().then(
+                            (_) => Navigator.of(context).pushReplacementNamed('/login'),
+                    );
+                    //Navigator.pop(context);
+                  },
                 ),
-                  fit: BoxFit.fill,
+                ListTile(
+                  title: Text('Settings'),
+                  leading: Icon(Icons.settings),
+                  onTap: () {
+                    //Opens up the accounts page.
+                    // Navigator.pop(context);
+                  },
                 ),
-              ),
+              ],
             ),
-            ListTile(
-              title: Text('Logout'),
-              leading: Icon(Icons.exit_to_app),
-              onTap: () {
-                //Navigator.of(context).pushNamed("/EvalPage");
-                //Opens up the login page.
-                appAuth.logout().then(
-                        (_) => Navigator.of(context).pushReplacementNamed('/login'),
-                );
-                //Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Settings'),
-              leading: Icon(Icons.settings),
-              onTap: () {
-                //Opens up the accounts page.
-                // Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 }
@@ -121,7 +124,7 @@ List<Widget> _buildGridTiles(numberOfTiles, BuildContext context) {
                   Icons.local_post_office,
                   size: 150.0,
                 ),
-                new Text('Hello World',
+                new Text('Hello World ${index+1}',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
@@ -138,65 +141,3 @@ List<Widget> _buildGridTiles(numberOfTiles, BuildContext context) {
   );
   return containers;
 }
-
-
-
-
-
-
-
-
-
-// AppBar previous code
-//        body: Center(
-//        child:
-//        new Scaffold(
-//          backgroundColor: Colors.white,
-//          body: new Row(
-//            children: <Widget>[
-//              new Column(
-//                children: <Widget>[
-//                  new Align(
-//                    heightFactor: 1.76,
-//                    widthFactor: 1.76,
-//                    child: Center(
-//                      child: new Container(
-//                        // child: new Image(image: AssetImage('/assets/images/images.png')),
-//                        child: new GestureDetector(
-//                            child: Icon(
-//                              Icons.local_post_office,
-//                              size: 110.0,
-//                            ),
-//                            onTap: () {
-//                              //Do something
-//                            }),
-//                      ),
-//                    ),
-//                  ),
-//                ],
-//              ),
-//              new Column(
-//                children: <Widget>[
-//                  new Align(
-//                    heightFactor: 1.76,
-//                    widthFactor: 1.76,
-//                    child: Center(
-//                      child: new Container(
-//                        // child: new Image(image: AssetImage('/assets/images/images.png')),
-//                        child: new GestureDetector(
-//                            child: Icon(
-//                              Icons.local_post_office,
-//                              size: 110.0,
-//                            ),
-//                            onTap: () {
-//                              //Do something
-//                            }),
-//                      ),
-//                    ),
-//                  ),
-//                ],
-//              ),
-//            ],
-//          ),
-//        ),
-//      ),

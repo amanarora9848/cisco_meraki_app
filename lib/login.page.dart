@@ -22,13 +22,29 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) => new Scaffold(
     appBar: new AppBar(
-      title: new Text('Login'),
+      title: new Text(
+        'Login',
+        style: new TextStyle(
+          color: Colors.black,
+        ),
+      ),
+      centerTitle: true,
+      iconTheme: new IconThemeData(
+        color: Colors.black,
+      ),
+      backgroundColor: Colors.white,
+      elevation: 0.0,
     ),
+    backgroundColor: Colors.white,
     body: new Container(
+      padding: const EdgeInsets.all(10.0),
       child: new Center(
         child: new RaisedButton(
             child: new Text(
-                'Login for App (${this._status})'
+                'Login for App (${this._status})',
+                style: new TextStyle(
+                  color: Colors.black,
+                ),
             ),
             onPressed: () {
               setState(() => this._status = 'loading');
