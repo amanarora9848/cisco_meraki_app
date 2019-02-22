@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(EvalPage());
 class EvalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: 'Flutter Demo',
-//      theme: ThemeData(
-//        primaryColor: Colors.white,
-////        primarySwatch: Colors.white,
-//      ),
-//      home: MyEvalPage(title: 'Queue Data Analytics'),
-//    );
     return Scaffold(
       body: MyEvalPage(
         title: 'Queue Data Analytics',
@@ -28,8 +21,8 @@ _MyEvalPageState createState() => _MyEvalPageState();
 }
 
 class _MyEvalPageState extends State<MyEvalPage> {
-
   @override
+
   Widget build(BuildContext context) {
     //SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
@@ -39,6 +32,17 @@ class _MyEvalPageState extends State<MyEvalPage> {
         elevation: 0.0,
       ),
       backgroundColor: Colors.white,
+      body: new Container(
+        child: new Row(
+          children: <Widget>[
+            new Divider(
+              height: 25.0,
+              color: Colors.red,
+              indent: 10.0,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
