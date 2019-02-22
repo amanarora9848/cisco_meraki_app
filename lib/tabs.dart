@@ -68,14 +68,6 @@ class _TabThemeState extends State<TabTheme>
         ),
 //        onPressed: print('Book on google calendar api'),
       ),
-//      floatingActionButton: new FloatingActionButton(
-//        backgroundColor: Theme.of(context).accentColor,
-//        child: new Icon(
-//          Icons.message,
-//          color: Colors.white,
-//        ),
-//        onPressed: () => print("open chats"),
-//      ),
     );
   }
 }
