@@ -27,7 +27,11 @@ class _TabThemeState extends State<TabTheme>
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.green[600],
-        title: new Text("Queue Data Analytics - 2"),
+        title: new Text("Queue Data Analytics", style: TextStyle(
+            letterSpacing: 3.0,
+            wordSpacing: 2.0,
+          ),
+        ),
         elevation: 0.0,
         bottom: new TabBar(
           controller: _tabController,

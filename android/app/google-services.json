@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1090069683744",
+    "firebase_url": "https://cisco-meraki-app.firebaseio.com",
+    "project_id": "cisco-meraki-app",
+    "storage_bucket": "cisco-meraki-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090069683744:android:9f08854d77f6e327",
+        "android_client_info": {
+          "package_name": "com.example.ciskomeraki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090069683744-g0f3hvpdsq6gop064s3mc15e4tjrg90t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8jmSN5tuvkK2Ux6D_S7hlikOczjcB5K4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

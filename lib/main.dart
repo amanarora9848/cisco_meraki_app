@@ -3,8 +3,12 @@ import 'login.page.dart';
 import 'auth.service.dart';
 import 'package:flutter/material.dart';
 import 'eval.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 AuthService appAuth = new AuthService();
+//_LoginPageState appAuth = new LoginPageState();
+
+//AuthService appAuth = new
 
 void main() async {
   // Set default home.

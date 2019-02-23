@@ -43,17 +43,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Meraki',
+          'Cisco Meraki',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
+            wordSpacing: 3.0,
+            letterSpacing: 4.0,
           ),
         ),
         iconTheme: new IconThemeData(
-          color: Colors.black,
+          color: Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.green,
         centerTitle: true,
-        elevation: 0.0,
+        elevation: 5.0,
       ),
       backgroundColor: Colors.white,
       body: new GridView.extent(
