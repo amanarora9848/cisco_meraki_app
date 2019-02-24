@@ -23,6 +23,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>{
 
   String _status = 'no-action';
+  String lang = "";
+  var _languages = ['English', 'Malayalam', 'Hindi', 'Gujarati', 'Marathi', 'Tamil'];
+  var _currentItemSelected = 'English';
 
   //(Not to be removed in case the code goes wrong)
 
@@ -122,7 +125,7 @@ class _LoginPageState extends State<LoginPage>{
                         height: 40.0,
                         elevation: 20.0,
                         textColor: Colors.white,
-                        child: new Text("Login", style: TextStyle(
+                        child: new Text("Login ($_status)", style: TextStyle(
                           fontSize: 18.0,
                         ),),
                         onPressed: () {
@@ -138,6 +141,40 @@ class _LoginPageState extends State<LoginPage>{
                         },
                       ),
                       //CircularProgressIndicator(),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Center(
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  'Select your preffered language: ',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                DropdownButton<String>(
+                                    elevation: 6,
+                                    isDense: true,
+                                    items: _languages.map((String dropDownStringItem) {
+                                      return DropdownMenuItem<String>(
+                                        value: dropDownStringItem,
+                                        child: Text(dropDownStringItem),
+                                      );
+                                }).toList(),
+                                    onChanged: (String newValueSelected) {
+                                      setState(() {
+                                        this._currentItemSelected = newValueSelected;
+                                      });
+                                    },
+                                  value: _currentItemSelected,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
