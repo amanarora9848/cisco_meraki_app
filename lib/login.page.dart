@@ -146,12 +146,12 @@ class _LoginPageState extends State<LoginPage>{
                           padding: const EdgeInsets.all(12.0),
                           child: Center(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(
-                                  'Select your preffered language: ',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.white,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                  child: Icon(
+                                    Icons.language,
                                   ),
                                 ),
                                 DropdownButton<String>(
