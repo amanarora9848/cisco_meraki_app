@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'today.dart';
 import 'tomorrow.dart';
 import 'weekly.dart';
+import 'today_data.dart';
 
 class TabTheme extends StatefulWidget {
 //  var cameras;
@@ -19,7 +20,7 @@ class _TabThemeState extends State<TabTheme>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = new TabController(vsync: this, initialIndex: 0, length: 3);
+    _tabController = new TabController(vsync: this, initialIndex: 0, length: 4);
   }
 
   @override
@@ -38,6 +39,10 @@ class _TabThemeState extends State<TabTheme>
           indicatorColor: Colors.white,
           tabs: <Widget>[
             //new Tab(icon: new Icon(Icons.camera_alt)),
+            new Tab(
+              //text: "STREAM",
+              icon: new Icon(Icons.ondemand_video),
+            ),
             new Tab(
               text: "TODAY",
             ),
@@ -61,6 +66,7 @@ class _TabThemeState extends State<TabTheme>
         controller: _tabController,
         children: <Widget>[
           new Today(),
+          new AnaToday(),
           new Tomorrow(),
           new Weekly(),
         ],

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 
 class Today extends StatelessWidget {
   @override
@@ -12,6 +13,7 @@ class Today extends StatelessWidget {
     );
   }
 }
+
 
 class TodayPage extends StatefulWidget {
   @override
@@ -26,127 +28,94 @@ class _TodayPageState extends State<TodayPage> {
     debugPrint(resp);
   }
 
+  TargetPlatform _platform;
+  VideoPlayerController _videoPlayerController1;
+  VideoPlayerController _videoPlayerController2;
+  ChewieController _chewieController;
+
   @override
   void initState(){
     super.initState();
     getJoke();
- }
-
-  Material myItems (IconData icon, String heading, int color) {
-    return Material(
-      color: Colors.white,
-      elevation: 12.0,
-      shadowColor: Color(0x802196F3),
-      borderRadius: BorderRadius.circular(14.0),
-      child: new Center(
-        child: new Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Text(heading,
-                        style: new TextStyle(
-                          color: new Color(color),
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Material(
-                    color: new Color(color),
-                    borderRadius: BorderRadius.circular(24.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: new Icon(
-                        icon,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Material myItemsStream (IconData icon, String heading, int color) {
-    return Material(
-      color: Colors.white,
-      elevation: 8.0,
-      shadowColor: Color(0x802196F3),
-      borderRadius: BorderRadius.circular(0.0),
-      child: new Center(
-        child: new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
-          child: new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Text(heading,
-                        style: new TextStyle(
-                          color: new Color(color),
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Material(
-                    color: new Color(color),
-                    borderRadius: BorderRadius.circular(24.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: new Icon(
-                        icon,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+    _videoPlayerController1 = VideoPlayerController.network(
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+//    _videoPlayerController2 = VideoPlayerController.network(
+//        'https://www.sample-videos.com/video123/mp4/480/big_buck_bunny_480p_20mb.mp4');
+    _chewieController = ChewieController(
+        videoPlayerController: _videoPlayerController1,
+        aspectRatio: 3 / 2,
+        autoPlay: true,
+        looping: false,
     );
   }
 
   @override
+  void dispose() {
+    _videoPlayerController1.dispose();
+    _videoPlayerController2.dispose();
+    _chewieController.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new StaggeredGridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12.0,
-        mainAxisSpacing: 12.0,
-        padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 8.0),
-        children: <Widget>[
-          myItemsStream(Icons.graphic_eq, 'Video Stream', 0xffed622b),
-          myItems(Icons.graphic_eq, 'Should you visit', 0xff26cb3c),
-          myItems(Icons.graphic_eq, 'Avg(people)', 0xffff3266),
-          myItems(Icons.graphic_eq, 'Data Visuals', 0xff3399fe),
-        ],
-        staggeredTiles: [
-          StaggeredTile.extent(2, 250.0),
-          StaggeredTile.extent(1, 150.0),
-          StaggeredTile.extent(1, 150.0),
-          StaggeredTile.extent(2, 260.0),
-        ],
-      ),
+    var pgWidth  = MediaQuery.of(context).size.width;
+    return Scaffold(
+        body: Column(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Icon(
+                        Icons.video_label,
+                        size: 26.0,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        'Video Stream',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 26.0,
+                          letterSpacing: 1.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+               Chewie(
+                 controller: _chewieController,
+               ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                    Container(
+                    width: pgWidth.toDouble() - 20,
+                    child: Text(
+                        "This is the live video stream from Cisco Meraki camera, from the place you want to vissit. You can have a look at the queue. Information and analytics has been provided on the tabs.",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                  ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
     );
+
   }
 }

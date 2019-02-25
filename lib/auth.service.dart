@@ -10,7 +10,7 @@ class AuthService {
     // Simulate a future for response after 2 second.
     return await new Future<bool>.delayed(
         new Duration(
-            seconds: 1,
+            milliseconds: 800,
         ), () => new Random().nextBool()
     );
   }
@@ -20,7 +20,7 @@ class AuthService {
     // Simulate a future for response after 1 second.
     return await new Future<void>.delayed(
         new Duration(
-            seconds: 1,
+            milliseconds: 600,
         ),
     );
   }

@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage>{
 
   String _status = 'no-action';
   String lang = "";
-  var _languages = ['English', 'Malayalam', 'Hindi', 'Gujarati', 'Marathi', 'Tamil'];
+  var _languages = ['English', 'മലയാളം', 'हिंदी', 'ગુજરતી', 'मराठी', 'தமிழ்'];
   var _currentItemSelected = 'English';
 
   //(Not to be removed in case the code goes wrong)
@@ -33,7 +33,10 @@ class _LoginPageState extends State<LoginPage>{
 //  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) => new Scaffold(
+  Widget build(BuildContext context) {
+    var pageWidth = MediaQuery.of(context).size.width;
+    var pageHeight = MediaQuery.of(context).size.height;
+    return new Scaffold(
     resizeToAvoidBottomPadding: false,
 //    appBar: new AppBar(
 //      title: new Text(
@@ -66,8 +69,8 @@ class _LoginPageState extends State<LoginPage>{
           children: <Widget>[
             Image(
               image: new AssetImage('assets/images/meraki_app_logo.png'),
-              height: 125.0,
-              width: 125.0,
+              height: 120.0,
+              width: 120.0,
             ),
             Text(
               'Cisco Meraki',
@@ -90,7 +93,7 @@ class _LoginPageState extends State<LoginPage>{
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -118,7 +121,7 @@ class _LoginPageState extends State<LoginPage>{
                           }
                         },
                       ),
-                      new Padding(padding: EdgeInsets.only(top: 20.0)),
+                      new Padding(padding: EdgeInsets.only(top: 30.0)),
                       new MaterialButton(
                         color: Colors.green,
                         minWidth: 100.0,
@@ -126,7 +129,7 @@ class _LoginPageState extends State<LoginPage>{
                         elevation: 20.0,
                         textColor: Colors.white,
                         child: new Text("Login ($_status)", style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                         ),),
                         onPressed: () {
                           setState(() => this._status = 'loading');
@@ -244,7 +247,7 @@ class _LoginPageState extends State<LoginPage>{
 //      try{
 //        await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email , password: _password);
 //        //TODO: navigate to home.
-//        //Navigator.of(context).pushReplacementNamed('/home');
+//        Navigator.of(context).pushReplacementNamed('/home');
 //        st = true;
 //      }catch(e){
 //        print(e.message);
