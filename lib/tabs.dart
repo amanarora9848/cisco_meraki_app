@@ -3,6 +3,9 @@ import 'today.dart';
 import 'tomorrow.dart';
 import 'weekly.dart';
 import 'today_data.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class TabTheme extends StatefulWidget {
 //  var cameras;
@@ -16,11 +19,29 @@ class _TabThemeState extends State<TabTheme>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
+//  Future getJoke() async {
+//    http.Response responseJoke = await http.get('http://api.icndb.com/jokes/random/5');
+//    var resp = jsonDecode(responseJoke.body).value[2].id;
+//    debugPrint(resp);
+//  }
+//  final String url = 'http://api.icndb.com/jokes/random/5';
+//  List data;
+//  Future<String> getData() async {
+//    var res = await http.get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+//
+//    setState(() {
+//      var resBody = json.decode(res.body);
+//      data = resBody["value"];
+//    });
+//
+//    return "Success fetting the json!";
+//  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = new TabController(vsync: this, initialIndex: 0, length: 4);
+    _tabController = new TabController(vsync: this, initialIndex: 1, length: 4);
   }
 
   @override
@@ -47,7 +68,7 @@ class _TabThemeState extends State<TabTheme>
               text: "TODAY",
             ),
             new Tab(
-              text: "TOMORROW",
+              text: "'MORROW",
             ),
             new Tab(
               text: "WEEKLY",

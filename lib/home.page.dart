@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'package:dio/dio.dart';
 
 //import 'login.page.dart';
 
@@ -8,19 +9,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: 'Flutter Demo',
-//      theme: ThemeData(
-//        primaryColor: Colors.white,
-//        primarySwatch: Colors.white,
-//      ),
-//      home: MyHomePage(title: 'Meraki'),
-//      routes: <String, WidgetBuilder> {
-//        // "/": (BuildContext context) => new MyApp(),
-//        "/EvalPage1": (BuildContext context) => new EvalPage(),
-//        //"/login": (BuildContext context) => Login(),
-//      },
-//    );
       return new Scaffold(
         body: MyHomePage(),
       );
@@ -36,6 +24,57 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio(); // for http requests
+  String _searchText = "";
+  List names = new List(); // names we get from API
+  List filteredNames = new List(); // names filtered by search text
+  Icon _searchIcon = new Icon(Icons.search);
+  Widget _appBarTitle = new Text( 'Search Example' );
+  //TODO: An alternative needed for this appBarTitle.
+
+  _MyHomePageState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          filteredNames = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    this._getNames();
+    super.initState();
+  }
+
+  Widget _buildList() {
+    if (!(_searchText.isEmpty)) {
+      List tempList = new List();
+      for (int i = 0; i < filteredNames.length; i++) {
+        if (filteredNames[i]['name'].toLowerCase().contains(_searchText.toLowerCase())) {
+          tempList.add(filteredNames[i]);
+        }
+      }
+      filteredNames = tempList;
+    }
+    return ListView.builder(
+      itemCount: names == null ? 0 : filteredNames.length,
+      itemBuilder: (BuildContext context, int index) {
+        return new ListTile(
+          title: Text(filteredNames[index]['name']),
+          onTap: () => print(filteredNames[index]['name']),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +149,42 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
     );
   }
+
+
+  void _getNames() async {
+    final response = await dio.get('https://swapi.co/api/people');
+    List tempList = new List();
+    for (int i = 0; i < response.data['results'].length; i++) {
+      tempList.add(response.data['results'][i]);
+    }
+
+    setState(() {
+      names = tempList;
+      filteredNames = names;
+    });
+  }
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search),
+              hintText: 'Search...'
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(Icons.search);
+        this._appBarTitle = new Text('Search Example');
+        //TODO: appBarTitle alternative needed.
+        filteredNames = names;
+        _filter.clear();
+      }
+    });
+  }
+
+
 }
 List<Widget> _buildGridTiles(numberOfTiles, BuildContext context) {
   List<Container> containers = new List<Container>.generate(numberOfTiles,
@@ -142,4 +217,7 @@ List<Widget> _buildGridTiles(numberOfTiles, BuildContext context) {
       }
   );
   return containers;
+
 }
+
+

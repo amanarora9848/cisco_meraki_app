@@ -20,6 +20,7 @@ void main() async {
   }
   // Run app!
   runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: 'App',
     home: _defaultHome,
     routes: <String, WidgetBuilder>{

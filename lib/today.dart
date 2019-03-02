@@ -22,11 +22,6 @@ class TodayPage extends StatefulWidget {
 
 class _TodayPageState extends State<TodayPage> {
 
-  Future getJoke() async {
-    http.Response responseJoke = await http.get('http://api.icndb.com/jokes/random/5');
-    var resp = jsonDecode(responseJoke.body).value[2].id;
-    debugPrint(resp);
-  }
 
   TargetPlatform _platform;
   VideoPlayerController _videoPlayerController1;
@@ -36,11 +31,9 @@ class _TodayPageState extends State<TodayPage> {
   @override
   void initState(){
     super.initState();
-    getJoke();
+//    getJoke();
     _videoPlayerController1 = VideoPlayerController.network(
         'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
-//    _videoPlayerController2 = VideoPlayerController.network(
-//        'https://www.sample-videos.com/video123/mp4/480/big_buck_bunny_480p_20mb.mp4');
     _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController1,
         aspectRatio: 3 / 2,
@@ -60,6 +53,7 @@ class _TodayPageState extends State<TodayPage> {
 
   @override
   Widget build(BuildContext context) {
+
     var pgWidth  = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Column(
@@ -101,7 +95,7 @@ class _TodayPageState extends State<TodayPage> {
                     Container(
                     width: pgWidth.toDouble() - 20,
                     child: Text(
-                        "This is the live video stream from Cisco Meraki camera, from the place you want to vissit. You can have a look at the queue. Information and analytics has been provided on the tabs.",
+                        "This is the live video stream from Cisco Meraki camera, from the place you want to visit. You can have a look at the queue. Information and analytics has been provided on the tabs.",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20.0,
