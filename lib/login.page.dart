@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'package:translator/translator.dart';
-import 'globals.dart' as globals;
+//import 'globals.dart' as globals;
+
 
 void main() {
   runApp(Login());
@@ -54,6 +55,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+
+// Platform messages may fail, so we use a try/catch PlatformException.
+//  try {
+//  currentLocation = await location.getLocation();
+//  } on PlatformException {
+//  currentLocation = null;
+//}
+
 //  GoogleTranslator translator = GoogleTranslator();
   String _status = 'no-action';
   String lang = "";
@@ -100,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 120.0,
                 ),
                 Text(
-                  'Cisco Meraki',
+                  'Cisco Meraki View',
                   style: TextStyle(
                     color: Colors.white,
                     letterSpacing: 3.5,

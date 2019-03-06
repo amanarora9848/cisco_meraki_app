@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'tabs.dart';
 
-void main() => runApp(EvalPage());
+//void main() => runApp(EvalPage());
 class EvalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

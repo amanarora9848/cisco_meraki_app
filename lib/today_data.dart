@@ -3,13 +3,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:dio/dio.dart';
 
-String url = 'view-source:http://2a52bbd8.ngrok.io/today';
 
-//Future<SwapiApi> getPost() async{
-//  final response = await http.get('$url/1');
-//  return swapiApiFromJson(response.body);
-//}
 
 
 class AnaToday extends StatelessWidget {
@@ -22,9 +18,6 @@ class AnaToday extends StatelessWidget {
   }
 }
 
-//math.Random random = new math.Random();
-
-
 
 class AnaTodayPage extends StatefulWidget {
   @override
@@ -33,23 +26,49 @@ class AnaTodayPage extends StatefulWidget {
 
 class _AnaTodayPageState extends State<AnaTodayPage> {
 
+  final String url = "https://n188.meraki.com/api/v0/devices/Q2FV-VVSR-NQ8U/camera/analytics/live";
+  List merakiData;
+
+  @override
+  void initState(){
+    super.initState();
+    this.getJsonData();
+  }
+
+   Future<String> getJsonData() async {
+    var response = await http.get(
+    //We encode the URL here:
+    Uri.encodeFull(url),
+    //Only accept json response.
+    headers: {"Accept": "application/json", "Content-type": "application/ json", "X-Cisco-Meraki-API-Key": "f98adaac402daf25ca554cbce3be10ea96f71401"}
+    );
+    int noPeople;
+    print(response.body);
+    print(response.body);
+    setState((){
+      var convertDataToJson = json.decode(response.body);
+      int numPeople = convertDataToJson['zones']['0']['person'];
+//      List<String> zone = convertDataToJson['zones'];
+      print(numPeople);
+//      print(zone);
+      noPeople = numPeople;
+    });
+    return noPeople.toString();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     var pageHeight = MediaQuery.of(context).size.height;
     var pageWidth = MediaQuery.of(context).size.width;
     var data = [
-      Sales("00", 50),
-      Sales("02", 20),
-      Sales("04", 90),
-      Sales("06", 60),
-      Sales("08", 80),
-      Sales("10", 100),
-      Sales("12", 30),
-      Sales("14", 50),
-      Sales("16", 20),
-      Sales("18", 90),
-      Sales("20", 60),
-      Sales("22", 30),
+      Sales("08:00", 27.769373),
+      Sales("10:00", 31.117863),
+      Sales("12:00", 30.153517),
+      Sales("14:00", 20),
+      Sales("16:00", 18),
+      Sales("18:00", 31.365051),
     ];
 
     var series = [
@@ -64,120 +83,270 @@ class _AnaTodayPageState extends State<AnaTodayPage> {
     var chart = charts.BarChart(
       series,
       barGroupingType: charts.BarGroupingType.groupedStacked,
+//      selectionModels: ,
     );
 
     return new Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
-              'Data Analytics Chart',
-              style: TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-                fontSize: 30.0,
-              ),
-            ),
-          ),
-          Container(
-            child: chart,
-            color: Colors.white12,
-            height: pageHeight / 2,
-          ),
-          Container(
-            height: pageHeight / 4,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        child: FutureBuilder(
+          future: getJsonData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if(snapshot.data == null){
+              return Container(
+                child: new Center(
+                  child: new CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    strokeWidth: 4.0,
+                  ),
+                ),
+              );
+            }
+            else {
+              String conf;
+              if(int.parse(snapshot.data) >= 5) {
+                conf = "No";
+              }
+              else{
+                conf = "Yes";
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      'Data Analytics Chart',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30.0,
+                      ),
                     ),
-                    elevation: 6.5,
-                    color: Colors.white,
-                    child: new Container(
-                      height: pageHeight / 3.6,
-                      width: pageWidth / 2.2,
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Container(
+                      height: pageHeight / 9,
+                      width: pageWidth / 1.05,
+                      child: new Card(
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Center(
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(7.0),
-                                  child: new Text(
-                                    'Average Number of people: ',
-                                    style: new TextStyle(
-                                      color: Colors.green,
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.w500,
-                                      letterSpacing: 1.5
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 6.0),
+                              child: Image.asset('assets/images/images.jpeg'),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 25.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Text('ABC Bank', style: new TextStyle(color: Colors.green, fontSize: 25.0, fontWeight: FontWeight.w500),),
+                                  Text(
+                                    'Timings: 9:00a.m. to 5:00p.m.'
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
                     ),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    elevation: 6.5,
-                    color: Colors.white,
-                    child: new Container(
-                      height: pageHeight / 3.6,
-                      width: pageWidth / 2.2,
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
+
+                  Container(
+                    child: chart,
+                    color: Colors.white12,
+                    height: pageHeight / 2.6,
+                  ),
+
+                  Container(
+                    height: pageHeight / 4,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      child: Column(
+                        children: <Widget>[
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            elevation: 6.5,
+                            color: Colors.white,
+                            child: new Container(
+                              height: pageHeight / 15.0,
+                              width: pageWidth / 1.1,
                               child: Center(
-                                child: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(7.0),
-                                    child: new Text(
-                                      'Should you visit today?',
-                                      style: new TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 25.0,
-                                        fontWeight: FontWeight.w500,
-                                        letterSpacing: 1.5,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(0.5),
+                                      child: Center(
+                                        child: Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(0.0),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                new Text(
+                                                  'Best time to visit today: 16:00 hrs.',
+                                                  style: new TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                                ),
+                                                new Text(
+                                                  'X',
+                                                  style: new TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                elevation: 6.5,
+                                color: Colors.white,
+                                child: new Container(
+                                  height: pageHeight / 6.5,
+                                  width: pageWidth / 2.2,
+                                  child: Center(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(7.0),
+                                              child: new Text(
+                                                'Number of people at the moment: ',
+                                                style: new TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 1.5
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Center(
+                                          child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(7.0),
+                                              child: new Text(
+                                                snapshot.data,
+                                                style: new TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 1.5
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                elevation: 6.5,
+                                color: Colors.white,
+                                child: new Container(
+                                  height: pageHeight / 6.5,
+                                  width: pageWidth / 2.2,
+                                  child: Center(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Center(
+                                            child: Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(7.0),
+                                                child: new Text(
+                                                  'Should you visit today?',
+                                                  style: new TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 1.5,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Center(
+                                            child: Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(0.1),
+                                                child: new Text(
+                                                  '$conf',
+                                                  style: new TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 1.5,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ],
+              );
+            }
+          }
+        ),
       ),
     );
   }
-
 }
+
+
 
 class Sales {
   final String time;
-  final int sold;
-
+  final double sold;
   Sales(this.time, this.sold);
 }

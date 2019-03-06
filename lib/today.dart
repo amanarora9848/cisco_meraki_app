@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:chewie/chewie.dart';
-import 'package:video_player/video_player.dart';
+
 
 class Today extends StatelessWidget {
   @override
@@ -20,96 +19,271 @@ class TodayPage extends StatefulWidget {
   _TodayPageState createState() => _TodayPageState();
 }
 
+
 class _TodayPageState extends State<TodayPage> {
 
 
-  TargetPlatform _platform;
-  VideoPlayerController _videoPlayerController1;
-  VideoPlayerController _videoPlayerController2;
-  ChewieController _chewieController;
+//  TargetPlatform _platform;
+//  VideoPlayerController _videoPlayerController1;
+//  VideoPlayerController _videoPlayerController2;
+//  ChewieController _chewieController;
+
+//  @override
+//  void initState(){
+//    super.initState();
+////    getJoke();
+//    _videoPlayerController1 = VideoPlayerController.network(
+//        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+//    _chewieController = ChewieController(
+//        videoPlayerController: _videoPlayerController1,
+//        aspectRatio: 3 / 2,
+//        autoPlay: true,
+//        looping: false,
+//    );
+//  }
+//
+//  @override
+//  void dispose() {
+//    _videoPlayerController1.dispose();
+//    _videoPlayerController2.dispose();
+//    _chewieController.dispose();
+//    super.dispose();
+//  }
+
+
+  final String url = "https://f990b6dd.ngrok.io/zones";
+  List merakiData;
 
   @override
   void initState(){
     super.initState();
-//    getJoke();
-    _videoPlayerController1 = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
-    _chewieController = ChewieController(
-        videoPlayerController: _videoPlayerController1,
-        aspectRatio: 3 / 2,
-        autoPlay: true,
-        looping: false,
-    );
+    this.getJsonData();
   }
 
-  @override
-  void dispose() {
-    _videoPlayerController1.dispose();
-    _videoPlayerController2.dispose();
-    _chewieController.dispose();
-    super.dispose();
+  Future<List> getJsonData() async {
+    var response = await http.get(
+      //We encode the URL here:
+        Uri.encodeFull(url),
+        //Only accept json response.
+        headers: {"Accept": "application/json", "Content-type": "application/ json"}
+    );
+    print(response.body);
+    var zone1 = json.decode(response.body)[0]['person'];
+    var zone2 = json.decode(response.body)[1]['person'];
+    List zone = [zone1, zone2];
+    return zone;
   }
+
 
 
   @override
   Widget build(BuildContext context) {
+    var pageHeight = MediaQuery.of(context).size.height;
+    var pageWidth = MediaQuery.of(context).size.width;
 
-    var pgWidth  = MediaQuery.of(context).size.width;
-    return Scaffold(
-        body: Column(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Icon(
-                        Icons.video_label,
-                        size: 26.0,
-                      ),
+    return new Scaffold(
+      body: Container(
+        child: FutureBuilder(
+            future: getJsonData(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if(snapshot.data == null){
+                return Container(
+                  child: new Center(
+                    child: new CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                      strokeWidth: 4.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        'Video Stream',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 26.0,
-                          letterSpacing: 1.0,
-                          fontWeight: FontWeight.bold,
+                  ),
+                );
+              }
+              else {
+                int greater;
+//                String exc;
+                if(snapshot.data[0] > snapshot.data[1]) {
+                  greater = 2;
+                }
+                else if(snapshot.data[0] < snapshot.data[0]) {
+                  greater = 1;
+                }
+//                else{
+//                  exc = "Join any queue.";
+//                }
+                return Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Container(
+                    height: pageHeight / 1.05,
+                    width: pageWidth / 1.05,
+                    child: new Column(
+                      children: <Widget>[
+                        Card(
+                          elevation: 8.0,
+                          child: new Container(
+                            width: pageWidth / 1.05,
+                            height: pageHeight / 3.2,
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Persons in Queue 1:',
+                                  style: new TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 24.0,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    '${snapshot.data[0]}',
+                                    style: new TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 40.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-               Chewie(
-                 controller: _chewieController,
-               ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                    Container(
-                    width: pgWidth.toDouble() - 20,
-                    child: Text(
-                        "This is the live video stream from Cisco Meraki camera, from the place you want to visit. You can have a look at the queue. Information and analytics has been provided on the tabs.",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                      ),
+                        Card(
+                          elevation: 8.0,
+                          child: new Container(
+                            width: pageWidth / 1.05,
+                            height: pageHeight / 3.2,
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Persons in Queue 2:',
+                                  style: new TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 24.0,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    '${snapshot.data[1]}',
+                                    style: new TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 40.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          elevation: 8.0,
+                          child: new Container(
+                            width: pageWidth / 1.05,
+                            height: pageHeight / 6.5,
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Recommended Queue:',
+                                  style: new TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 24.0,
+                                  ),
+                                ),
+                                Text(
+                                  '$greater',
+                                  style: new TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 28.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        )
+                );
+              }
+            }
+        ),
+      ),
     );
-
   }
 }
+//
+//class People{
+//  final int person;
+//  People(int, this.person);
+//}
+
+
+
+
+
+
+
+
+
+
+//      Scaffold(
+//        body: Column(
+//          children: <Widget>[
+//            Column(
+//              children: <Widget>[
+//                Row(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  children: <Widget>[
+//                    Padding(
+//                      padding: const EdgeInsets.all(20.0),
+//                      child: Icon(
+//                        Icons.video_label,
+//                        size: 26.0,
+//                      ),
+//                    ),
+//                    Padding(
+//                      padding: const EdgeInsets.all(20.0),
+//                      child: Text(
+//                        'Video Stream',
+//                        style: TextStyle(
+//                          color: Colors.black,
+//                          fontSize: 26.0,
+//                          letterSpacing: 1.0,
+//                          fontWeight: FontWeight.bold,
+//                        ),
+//                      ),
+//                    ),
+//                  ],
+//                ),
+//               Chewie(
+//                 controller: _chewieController,
+//               ),
+//                Padding(
+//                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+//                  child: Row(
+//                    crossAxisAlignment: CrossAxisAlignment.center,
+//                    children: <Widget>[
+//                    Container(
+//                    width: pgWidth.toDouble() - 20,
+//                    child: Text(
+//                        "This is the live video stream from Cisco Meraki camera, from the place you want to visit. You can have a look at the queue. Information and analytics has been provided on the tabs.",
+//                      style: TextStyle(
+//                        color: Colors.black,
+//                        fontSize: 20.0,
+//                      ),
+//                    ),
+//                  ),
+//                  ],
+//                  ),
+//                ),
+//              ],
+//            ),
+//          ],
+//        )
+//    );
+//  }

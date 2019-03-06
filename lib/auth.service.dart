@@ -11,7 +11,7 @@ class AuthService {
     return await new Future<bool>.delayed(
         new Duration(
             milliseconds: 800,
-        ), () => new Random().nextBool()
+        ), () => true
     );
   }
 

@@ -32,6 +32,9 @@ dependencies:
   charts_flutter: ^0.5.0
   translator: ^0.1.0+5
   dio: 2.0.15
+  #device_calendar: ^0.1.1
+  #location: ^2.0.0
+  #geolocator: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +60,10 @@ flutter:
     - assets/images/musk.jpeg
     - assets/images/SBI_queue.png
     - assets/images/meraki_app_logo.png
+    - assets/images/images.jpeg
+    - assets/images/railways.jpeg
+    - assets/images/rto.png
+    - assets/images/postoffice.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
