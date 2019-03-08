@@ -88,13 +88,141 @@ class _TomorrowPageState extends State<TomorrowPage> {
             future: getJsonData(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if(snapshot.data == null){
-                return Container(
-                  child: new Center(
-                    child: new CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                      strokeWidth: 4.0,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        'Data Analytics Chart: Next Day',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26.0,
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      child: chart,
+                      color: Colors.white12,
+                      height: pageHeight / 2,
+                    ),
+                    Container(
+                      height: pageHeight / 4,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              elevation: 6.5,
+                              color: Colors.white,
+                              child: new Container(
+                                height: pageHeight / 3.6,
+                                width: pageWidth / 2.2,
+                                child: Center(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Center(
+                                        child: Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(7.0),
+                                            child: new Text(
+                                              'Expected Number of people: ',
+                                              style: new TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 24.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 1.5
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Center(
+                                        child: Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(7.0),
+                                            child: Container(
+                                                height: pageHeight / 30,
+                                                width: pageWidth / 15,
+                                                child: new CircularProgressIndicator(
+                                                  strokeWidth: 3.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              elevation: 6.5,
+                              color: Colors.white,
+                              child: new Container(
+                                height: pageHeight / 3.6,
+                                width: pageWidth / 2.2,
+                                child: Center(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                          child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(7.0),
+                                              child: new Text(
+                                                'Should you visit tomorrow?',
+                                                style: new TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 22.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 1.5,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                          child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: new Text(
+                                                'Connecting...',
+                                                style: new TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 22.0,
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: 1.5,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               }
               else {

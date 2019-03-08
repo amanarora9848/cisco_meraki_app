@@ -92,13 +92,223 @@ class _AnaTodayPageState extends State<AnaTodayPage> {
           future: getJsonData(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if(snapshot.data == null){
-              return Container(
-                child: new Center(
-                  child: new CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                    strokeWidth: 4.0,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      'Data Analytics Chart',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30.0,
+                      ),
+                    ),
                   ),
-                ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Container(
+                      height: pageHeight / 9,
+                      width: pageWidth / 1.05,
+                      child: new Card(
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 6.0),
+                              child: Image.asset('assets/images/images.jpeg'),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 25.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Text('ABC Bank', style: new TextStyle(color: Colors.green, fontSize: 25.0, fontWeight: FontWeight.w500),),
+                                  Text(
+                                    'Timings: 9:00a.m. to 5:00p.m.'
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    child: chart,
+                    color: Colors.white12,
+                    height: pageHeight / 2.6,
+                  ),
+
+                  Container(
+                    height: pageHeight / 4,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      child: Column(
+                        children: <Widget>[
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            elevation: 6.5,
+                            color: Colors.white,
+                            child: new Container(
+                              height: pageHeight / 15.0,
+                              width: pageWidth / 1.1,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(0.5),
+                                      child: Center(
+                                        child: Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(0.0),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                new Text(
+                                                  'No connection...',
+                                                  style: new TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                elevation: 6.5,
+                                color: Colors.white,
+                                child: new Container(
+                                  height: pageHeight / 6.5,
+                                  width: pageWidth / 2.2,
+                                  child: Center(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(7.0),
+                                              child: new Text(
+                                                'Number of people at the moment: ',
+                                                style: new TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 1.5
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Center(
+                                          child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(7.0),
+                                              child: Container(
+                                                height: pageHeight / 35,
+                                                width: pageWidth / 20,
+                                                child: new CircularProgressIndicator(
+                                                  strokeWidth: 3.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                elevation: 6.5,
+                                color: Colors.white,
+                                child: new Container(
+                                  height: pageHeight / 6.5,
+                                  width: pageWidth / 2.2,
+                                  child: Center(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Center(
+                                            child: Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(7.0),
+                                                child: new Text(
+                                                  'Should you visit today?',
+                                                  style: new TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 1.5,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Center(
+                                            child: Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(0.1),
+                                                child: Container(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(7.0),
+                                              child: Container(
+                                                height: pageHeight / 40,
+                                                width: pageWidth / 20,
+                                                child: new CircularProgressIndicator(
+                                                  strokeWidth: 3.0,
+                                                ),
+                                              ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               );
             }
             else {
