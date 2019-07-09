@@ -40,7 +40,7 @@ class _AnaTodayPageState extends State<AnaTodayPage> {
     //We encode the URL here:
     Uri.encodeFull(url),
     //Only accept json response.
-    headers: {"Accept": "application/json", "Content-type": "application/ json", "X-Cisco-Meraki-API-Key": "f98adaac402daf25ca554cbce3be10ea96f71401"}
+    headers: {"Accept": "application/json", "Content-type": "application/ json", "X-Cisco-Meraki-API-Key": ""}
     );
     int noPeople;
     print(response.body);
